@@ -3,7 +3,7 @@ package com.example.real.DataBase;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "expenses")
+@Entity(tableName = "expenses") // הגדרת הטבלה עם @Entity
 public class Expense {
 
     @PrimaryKey(autoGenerate = true)
@@ -13,7 +13,8 @@ public class Expense {
     public String amount;    // סכום ההוצאה
     public String date;      // תאריך ההוצאה
     public String time;      // שעת ההוצאה
-    // קונסטרקטור למחלקה
+
+    // קונסטרקטור
     public Expense(String category, String amount, String date, String time) {
         this.category = category;
         this.amount = amount;
