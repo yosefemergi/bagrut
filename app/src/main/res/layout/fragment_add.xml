@@ -1,0 +1,119 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    android:padding="16dp">
+
+    <!-- כותרת עליונה -->
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="119dp"
+        android:layout_height="28dp"
+        android:background="@drawable/rounded_background"
+        android:text="Add Record"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- כפתורי בחירה בין הכנסה להוצאה -->
+    <RadioGroup
+        android:id="@+id/typeRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <RadioButton
+            android:id="@+id/expenseRadioButton"
+            android:layout_width="112dp"
+            android:layout_height="83dp"
+            android:buttonTint="@color/colorAccent"
+            android:text="Expense"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="18sp"
+
+            />
+
+        <RadioButton
+            android:id="@+id/incomeRadioButton"
+            android:layout_width="125dp"
+            android:layout_height="83dp"
+            android:buttonTint="@color/colorPrimary"
+            android:text="Income"
+            android:textColor="@color/colorAccentDark"
+            android:textStyle="bold"
+            android:textSize="22sp"
+
+            />
+
+    </RadioGroup>
+
+    <!-- שדה הזנת סכום -->
+    <EditText
+        android:id="@+id/amountEditText"
+        android:layout_width="387dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:hint="Enter amount"
+        android:inputType="numberDecimal"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/typeRadioGroup" />
+
+    <!-- בחירת קטגוריה -->
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="375dp"
+        android:layout_height="65dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:text="Category"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/amountEditText" />
+
+    <!-- בחירת תאריך ושעה -->
+    <TextView
+        android:id="@+id/dateTimeTextView"
+        android:layout_width="378dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded"
+        android:gravity="center"
+        android:text="Date &amp; Time"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/categoryTextView" />
+
+    <!-- כפתור שמירה -->
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:backgroundTint="@color/colorAccent"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="24dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

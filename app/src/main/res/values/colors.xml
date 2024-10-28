@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#CDDC39</color>
+    <color name="purple_700">#8BC34A</color>
+    <color name="purple_500">#4CAF50</color>
+    <color name="grey">#49494B</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="colorPrimary">#4CAF50</color> <!-- צבע ראשי ירוק -->
+    <color name="colorPrimaryDark">#388E3C</color> <!-- צבע כהה יותר -->
+    <color name="colorAccent">#81C784</color> <!-- צבע פוקוס בהיר יותר -->
+    <color name="drawerBackground">#FFFFFF</color> <!-- צבע רקע של ה-Drawer -->
+    <color name="textColor">#000000</color> <!-- צבע טקסט -->
+    <color name="colorAccentDark">#43A047</color>
+    <color name="green_background">#2E7D32</color> <!-- צבע רקע ירוק -->
+    <color name="red">#E60202</color> <!-- צבע רקע ירוק -->
+    <color name="green">#00FF00</color>
+</resources>
