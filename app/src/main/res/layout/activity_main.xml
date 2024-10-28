@@ -11,7 +11,7 @@
         android:id="@+id/btnn"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="put balance"
+        android:text="put balanc"
         app:layout_constraintBottom_toTopOf="@+id/FrameLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
