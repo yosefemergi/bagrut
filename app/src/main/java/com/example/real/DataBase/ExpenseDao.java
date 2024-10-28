@@ -16,5 +16,6 @@ public interface ExpenseDao {
     // פונקציה לשליפת כל ההוצאות, בסדר יורד לפי id
     @Query("SELECT * FROM expenses ORDER BY id DESC")
     List<Expense> getAllExpenses();
+
 }
 

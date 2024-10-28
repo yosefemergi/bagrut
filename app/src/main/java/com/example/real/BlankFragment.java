@@ -41,6 +41,9 @@ public class BlankFragment extends Fragment {
             if (!amount.isEmpty()) {
                 saveAmount(amount);
                 Toast.makeText(getActivity(), "Amount saved!", Toast.LENGTH_SHORT).show();
+                // מעבר ל-DashboardFragment
+                ((MainActivity) requireActivity()).loadFragment(new DashboardFragment());
+
             } else {
                 Toast.makeText(getActivity(), "Please enter an amount", Toast.LENGTH_SHORT).show();
             }

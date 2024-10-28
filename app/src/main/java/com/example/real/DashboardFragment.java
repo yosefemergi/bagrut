@@ -62,9 +62,13 @@ public class DashboardFragment extends Fragment {
 
     private void loadBalance() {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
-        float currentBalance = sharedPreferences.getFloat("balance_amount", 0); // קבלת היתרה כ-Float
 
-        TextView balanceTextView = getView().findViewById(R.id.textViewBalance); // וודא שה-ID נכון
+        // קריאה ל-balance_amount כ-String והמרה ל-Float
+        String balanceString = sharedPreferences.getString("balance_amount", "0");
+        float currentBalance = Float.parseFloat(balanceString);
+
+        // הצגת היתרה בטקסט של ה-TextView
+        TextView balanceTextView = getView().findViewById(R.id.textViewBalance);
         if (balanceTextView != null) {
             balanceTextView.setText("₪" + currentBalance);
         }

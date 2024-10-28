@@ -127,16 +127,20 @@ public class AddFragment extends Fragment {
         new Thread(() -> {
             db.expenseDao().insertExpense(expense);
 
-            // עדכון היתרה ב-SharedPreferences כ-Float
+            // עדכון היתרה ב-SharedPreferences כ-String
             SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            float currentBalance = sharedPreferences.getFloat("balance_amount", 0);
+            // קבלת היתרה הנוכחית כ-String והמרה ל-Float
+            String currentBalanceString = sharedPreferences.getString("balance_amount", "0");
+            float currentBalance = Float.parseFloat(currentBalanceString);
             float expenseAmount = Float.parseFloat(amountString);
 
+            // חישוב היתרה החדשה
             float newBalance = currentBalance - expenseAmount;
 
-            editor.putFloat("balance_amount", newBalance); // שמירת היתרה כ-Float
+            // שמירת היתרה החדשה כ-String
+            editor.putString("balance_amount", String.valueOf(newBalance));
             editor.apply();
 
             getActivity().runOnUiThread(() -> {
@@ -154,4 +158,5 @@ public class AddFragment extends Fragment {
             });
         }).start();
     }
+
 }

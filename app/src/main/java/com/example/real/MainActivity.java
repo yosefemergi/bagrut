@@ -32,7 +32,10 @@ Button btn1;
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-
+        // בדיקה אם זה האתחול הראשון של האקטיביטי (הטעינה הראשונה)
+        if (savedInstanceState == null) {
+            loadFragment(new BlankFragment());
+        }
 //            PieChart pieChart = findViewById(R.id.line_chart);
 //
 //            ArrayList<PieEntry> entries = new ArrayList<>();
