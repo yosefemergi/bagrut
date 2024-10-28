@@ -46,12 +46,13 @@ public class BlankFragment extends Fragment {
             }
         });
     }
-//    In this line, we create a SharedPreferences object using getSharedPreferences and request access to a storage location
+    //    In this line, we create a SharedPreferences object using getSharedPreferences and request access to a storage location
 //        called "MyAppPrefs". Context.MODE_PRIVATE means that the storage is accessible only to the current application.
     private void saveAmount(String amount) {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("balance_amount", amount);
         editor.apply();
+
     }
 }

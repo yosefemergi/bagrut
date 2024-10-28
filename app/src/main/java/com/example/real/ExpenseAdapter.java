@@ -30,9 +30,9 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expense = expenses.get(position);
         holder.categoryTextView.setText(expense.category);
-        holder.amountTextView.setText("₪" + expense.amount);
+        holder.amountTextView.setText("-₪" + expense.amount);
         holder.dateTextView.setText(expense.date);
-        holder.timeTextView.setText(expense.time);
+
     }
 
     @Override
@@ -41,14 +41,14 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     }
 
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
-        TextView categoryTextView, amountTextView, dateTextView, timeTextView;
+        TextView categoryTextView, amountTextView, dateTextView;
 
         public ExpenseViewHolder(@NonNull View itemView) {
             super(itemView);
             categoryTextView = itemView.findViewById(R.id.categoryTextView);
             amountTextView = itemView.findViewById(R.id.amountTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
-            timeTextView = itemView.findViewById(R.id.timeTextView);
+
         }
     }
 }

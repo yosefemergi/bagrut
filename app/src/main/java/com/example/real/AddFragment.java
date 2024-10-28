@@ -3,6 +3,8 @@ package com.example.real;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -41,9 +43,7 @@ public class AddFragment extends Fragment {
         categoryTextView = view.findViewById(R.id.categoryTextView);
         dateTimeTextView = view.findViewById(R.id.dateTimeTextView);
         selectedDateTime = Calendar.getInstance();
-        categoryTextView = view.findViewById(R.id.categoryTextView);
         amountEditText = view.findViewById(R.id.amountEditText);
-        dateTimeTextView = view.findViewById(R.id.dateTimeTextView);
         saveButton = view.findViewById(R.id.saveButton);
 
         // אתחול מסד הנתונים
@@ -111,26 +111,46 @@ public class AddFragment extends Fragment {
     }
     private void saveExpense() {
         String category = categoryTextView.getText().toString();
-        String amount = amountEditText.getText().toString();
+        String amountString = amountEditText.getText().toString();
         String date = dateTimeTextView.getText().toString();
-        String time = Calendar.getInstance().getTime().toString();  // כאן השתמשנו בתאריך הנוכחי (אפשר גם מתאריך שנבחר)
+        String time = Calendar.getInstance().getTime().toString();
 
-
-
-// ודא שהגדרת RadioGroup נכון קודם לכן
         int selectedTypeId = typeRadioGroup.getCheckedRadioButtonId();
 
-        if (category.isEmpty() || amount.isEmpty() || date.isEmpty() || selectedTypeId == -1) {
+        if (category.isEmpty() || amountString.isEmpty() || date.isEmpty() || selectedTypeId == -1) {
             Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
-        // יצירת אובייקט Expense ושמירתו במסד הנתונים
-        Expense expense = new Expense(category, amount, date, time);
+
+        Expense expense = new Expense(category, amountString, date, time);
 
         new Thread(() -> {
             db.expenseDao().insertExpense(expense);
+
+            // עדכון היתרה ב-SharedPreferences כ-Float
+            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+
+            float currentBalance = sharedPreferences.getFloat("balance_amount", 0);
+            float expenseAmount = Float.parseFloat(amountString);
+
+            float newBalance = currentBalance - expenseAmount;
+
+            editor.putFloat("balance_amount", newBalance); // שמירת היתרה כ-Float
+            editor.apply();
+
             getActivity().runOnUiThread(() -> {
                 Toast.makeText(getActivity(), "Expense saved", Toast.LENGTH_SHORT).show();
+
+                categoryTextView.setText("Category");
+                amountEditText.setText("");
+                dateTimeTextView.setText("Date & Time");
+                typeRadioGroup.clearCheck();
+
+                TextView balanceTextView = getActivity().findViewById(R.id.textViewBalance);
+                if (balanceTextView != null) {
+                    balanceTextView.setText("₪" + newBalance);
+                }
             });
         }).start();
     }

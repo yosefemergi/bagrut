@@ -6,7 +6,7 @@ import androidx.room.RoomDatabase;
 import com.example.real.DataBase.Expense;
 import com.example.real.DataBase.ExpenseDao;
 
-@Database(entities = {Expense.class}, version = 3)
+@Database(entities = {Expense.class}, version = 3, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract ExpenseDao expenseDao();
 }

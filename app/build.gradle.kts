@@ -14,6 +14,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -29,14 +30,21 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+
+    // הוספת התראה עבור Deprecated API
+    tasks.withType<JavaCompile>().configureEach {
+        options.compilerArgs.add("-Xlint:deprecation")
+    }
+
 }
 
+
 dependencies {
-    implementation ("androidx.cardview:cardview:1.0.0")
-    implementation ("androidx.room:room-runtime:2.5.0")
+    implementation("androidx.cardview:cardview:1.0.0")
+    implementation("androidx.room:room-runtime:2.5.0")
     implementation(libs.room.common)
-    annotationProcessor ("androidx.room:room-compiler:2.5.0")
-    implementation ("com.google.android.material:material:1.4.0")
+    annotationProcessor("androidx.room:room-compiler:2.5.0")
+    implementation("com.google.android.material:material:1.4.0")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation(libs.appcompat)
     implementation(libs.material)
