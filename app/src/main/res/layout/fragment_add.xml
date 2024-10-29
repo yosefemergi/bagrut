@@ -35,13 +35,14 @@
 
         <RadioButton
             android:id="@+id/expenseRadioButton"
-            android:layout_width="112dp"
+            android:layout_width="133dp"
             android:layout_height="83dp"
-            android:buttonTint="@color/colorAccent"
+            android:buttonTint="@color/red"
             android:text="Expense"
             android:textColor="@color/red"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:textSize="18sp"
+
 
             />
 
@@ -49,11 +50,12 @@
             android:id="@+id/incomeRadioButton"
             android:layout_width="125dp"
             android:layout_height="83dp"
-            android:buttonTint="@color/colorPrimary"
+            android:layout_marginLeft="33dp"
+            android:buttonTint="@color/colorPrimaryDark"
             android:text="Income"
-            android:textColor="@color/colorAccentDark"
-            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="22sp"
+            android:textStyle="bold"
 
             />
 
@@ -109,7 +111,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Save"
-        android:backgroundTint="@color/colorAccent"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/purple_500"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
