@@ -116,13 +116,15 @@ public class AddFragment extends Fragment {
         String time = Calendar.getInstance().getTime().toString();
 
         int selectedTypeId = typeRadioGroup.getCheckedRadioButtonId();
+        boolean isIncome = selectedTypeId == R.id.incomeRadioButton; // אם הכפתור שנבחר הוא הכנסה, 'isIncome' יהיה true
 
         if (category.isEmpty() || amountString.isEmpty() || date.isEmpty() || selectedTypeId == -1) {
             Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        Expense expense = new Expense(category, amountString, date, time);
+
+        Expense expense = new Expense(category, amountString, date, time, isIncome);
 
         new Thread(() -> {
             db.expenseDao().insertExpense(expense);
@@ -137,7 +139,7 @@ public class AddFragment extends Fragment {
             float expenseAmount = Float.parseFloat(amountString);
 
             // חישוב היתרה החדשה
-            float newBalance = currentBalance - expenseAmount;
+            float newBalance = isIncome ? (currentBalance + expenseAmount) : (currentBalance - expenseAmount);
 
             // שמירת היתרה החדשה כ-String
             editor.putString("balance_amount", String.valueOf(newBalance));

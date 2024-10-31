@@ -30,6 +30,7 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public void onBindViewHolder(@NonNull ExpenseViewHolder holder, int position) {
         Expense expense = expenses.get(position);
         holder.categoryTextView.setText(expense.category);
+        String amountText = expense.isIncome ? "+₪" + expense.amount : "-₪" + expense.amount ;
         holder.amountTextView.setText("-₪" + expense.amount);
         holder.dateTextView.setText(expense.date);
 
@@ -39,7 +40,10 @@ public class ExpenseAdapter extends RecyclerView.Adapter<ExpenseAdapter.ExpenseV
     public int getItemCount() {
         return expenses.size();
     }
-
+    public void setExpenses(List<Expense> expenses) {
+        this.expenses = expenses;
+        notifyDataSetChanged(); // לעדכן את ה-RecycleView לאחר שינוי הנתונים
+    }
     public static class ExpenseViewHolder extends RecyclerView.ViewHolder {
         TextView categoryTextView, amountTextView, dateTextView;
 

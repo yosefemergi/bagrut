@@ -8,30 +8,42 @@
     android:padding="16dp">
 
     <!-- כותרת עליונה -->
+
+    <!-- כפתורי בחירה בין הכנסה להוצאה -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="119dp"
         android:layout_height="28dp"
         android:background="@drawable/rounded_background"
+        android:gravity="center"
         android:text="Add Record"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.03" />
 
-    <!-- כפתורי בחירה בין הכנסה להוצאה -->
+    <!-- שדה הזנת סכום -->
+
+    <!-- בחירת קטגוריה -->
+
+    <!-- בחירת תאריך ושעה -->
     <RadioGroup
         android:id="@+id/typeRadioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"
+        app:layout_constraintVertical_bias="0.055">
 
         <RadioButton
             android:id="@+id/expenseRadioButton"
@@ -50,7 +62,6 @@
             android:id="@+id/incomeRadioButton"
             android:layout_width="125dp"
             android:layout_height="83dp"
-            android:layout_marginLeft="33dp"
             android:buttonTint="@color/colorPrimaryDark"
             android:text="Income"
             android:textColor="@color/colorPrimaryDark"
@@ -61,62 +72,67 @@
 
     </RadioGroup>
 
-    <!-- שדה הזנת סכום -->
     <EditText
         android:id="@+id/amountEditText"
-        android:layout_width="387dp"
-        android:layout_height="56dp"
+        android:layout_width="369dp"
+        android:layout_height="58dp"
         android:layout_marginTop="16dp"
-        android:background="@drawable/rounded"
+        android:background="@drawable/button_background"
         android:gravity="center"
         android:hint="Enter amount"
         android:inputType="numberDecimal"
         android:textColor="@color/white"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/typeRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@id/typeRadioGroup"
+        app:layout_constraintVertical_bias="0.059" />
 
-    <!-- בחירת קטגוריה -->
     <TextView
         android:id="@+id/categoryTextView"
         android:layout_width="375dp"
         android:layout_height="65dp"
-        android:layout_marginTop="24dp"
-        android:background="@drawable/rounded"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/button_background"
         android:gravity="center"
         android:text="Category"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/amountEditText" />
 
-    <!-- בחירת תאריך ושעה -->
+    <!-- כפתור שמירה -->
     <TextView
         android:id="@+id/dateTimeTextView"
         android:layout_width="378dp"
         android:layout_height="66dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/rounded"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/button_background"
         android:gravity="center"
         android:text="Date &amp; Time"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/categoryTextView" />
 
-    <!-- כפתור שמירה -->
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Save"
+        android:layout_marginTop="24dp"
         android:background="@drawable/rounded"
         android:backgroundTint="@color/purple_500"
+        android:text="Save"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="24dp" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.978" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

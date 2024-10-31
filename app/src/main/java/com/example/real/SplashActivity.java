@@ -17,6 +17,6 @@ public class SplashActivity extends AppCompatActivity {
             Intent intent = new Intent(SplashActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
-        }, 6000); // 3000 milliseconds = 3 seconds
+        }, 5000); // 3000 milliseconds = 3 seconds
     }
 }

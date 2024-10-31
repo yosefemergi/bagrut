@@ -17,5 +17,12 @@ public interface ExpenseDao {
     @Query("SELECT * FROM expenses ORDER BY id DESC")
     List<Expense> getAllExpenses();
 
+    @Query("SELECT * FROM expenses WHERE isIncome = 1 ORDER BY id DESC")
+    List<Expense> getAllIncomes();
+
+    @Query("SELECT * FROM expenses WHERE isIncome = 0 ORDER BY id DESC")
+    List<Expense> getAllExpensesOnly();
+
+
 }
 

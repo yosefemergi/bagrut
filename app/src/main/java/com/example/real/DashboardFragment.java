@@ -77,17 +77,25 @@ public class DashboardFragment extends Fragment {
     private void loadExpenses() {
         // Load expenses from the database in a separate thread
         new Thread(() -> {
-            List<Expense> expenses = db.expenseDao().getAllExpenses();
+            List<Expense> expenses = db.expenseDao().getAllExpensesOnly();
             if (expenses != null && !expenses.isEmpty()) {
                 getActivity().runOnUiThread(() -> {
-                    // Set the adapter with the retrieved expenses
-                    ExpenseAdapter adapter = new ExpenseAdapter(expenses);
-                    recyclerView.setAdapter(adapter);
+                    // בדוק אם כבר יש מתאם או צור מתאם חדש אם אין
+                    if (recyclerView.getAdapter() == null) {
+                        ExpenseAdapter adapter = new ExpenseAdapter(expenses);
+                        recyclerView.setAdapter(adapter);
+                    } else {
+                        // עדכן את הרשימה באמצעות הפונקציה החדשה setExpenses
+                        ((ExpenseAdapter) recyclerView.getAdapter()).setExpenses(expenses);
+                    }
                 });
             } else {
-                getActivity().runOnUiThread(() -> Toast.makeText(getContext(), "No expenses found", Toast.LENGTH_SHORT).show());
+                getActivity().runOnUiThread(() ->
+                        Toast.makeText(getContext(), "No expenses found", Toast.LENGTH_SHORT).show()
+                );
             }
         }).start();
     }
+
 
 }
