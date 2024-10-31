@@ -21,34 +21,34 @@
             >
 
             <TextView
-                android:id="@+id/categoryTextView"
+                android:id="@+id/categoryTextViewIncome"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Category"
-                android:textColor="#B14258"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/amountTextView"
+                android:id="@+id/amountTextViewIncome"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="₪ Amount"
-                android:textColor="#B14258"
+                android:text="+₪ Amount"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
         <!-- שורה של תאריך -->
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/dateTextViewIncome"
             android:layout_width="wrap_content"
             android:layout_marginLeft="170dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Date"
-            android:textColor="#B14258"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
             android:textStyle="bold" />
 

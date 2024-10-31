@@ -10,6 +10,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.room.Room;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,17 +30,17 @@ public class AddFragment extends Fragment {
     private TextView categoryTextView;
     private TextView dateTimeTextView;
     private Calendar selectedDateTime;
-    private TextView  amountEditText;
+    private TextView amountEditText;
     private Button saveButton;
     private com.example.real.DataBase.AppDatabase db;
     private RadioGroup typeRadioGroup;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()); // הגדרת פורמט תאריך אחיד
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_add, container, false);
 
         typeRadioGroup = view.findViewById(R.id.typeRadioGroup);
-
-
         categoryTextView = view.findViewById(R.id.categoryTextView);
         dateTimeTextView = view.findViewById(R.id.dateTimeTextView);
         selectedDateTime = Calendar.getInstance();
@@ -48,15 +49,14 @@ public class AddFragment extends Fragment {
 
         // אתחול מסד הנתונים
         db = Room.databaseBuilder(requireContext(), com.example.real.DataBase.AppDatabase.class, "expenses-db")
-                .fallbackToDestructiveMigration() // מאפשר מיגרציה הרסנית
+                .fallbackToDestructiveMigration()
                 .build();
-        saveButton.setOnClickListener(v -> saveExpense());
-        // פתח את ה-Dialog לבחירת תאריך ושעה
-        dateTimeTextView.setOnClickListener(v -> showDatePickerDialog());
-        // רשימת הקטגוריות
-        String[] categories = {"Food", "Transport", "Shopping", "Health", "Entertainment", "Other"};
 
-        // הצגת ה-Dialog בעת לחיצה על קטגוריה
+        saveButton.setOnClickListener(v -> saveExpense());
+
+        dateTimeTextView.setOnClickListener(v -> showDatePickerDialog());
+
+        String[] categories = {"Food", "Transport", "Shopping", "Health", "Entertainment", "Other"};
         categoryTextView.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog);
             builder.setTitle("Choose a Category")
@@ -65,11 +65,11 @@ public class AddFragment extends Fragment {
                         categoryTextView.setText(selectedCategory);
                     });
             builder.create().show();
-
         });
 
         return view;
     }
+
     private void showDatePickerDialog() {
         int year = selectedDateTime.get(Calendar.YEAR);
         int month = selectedDateTime.get(Calendar.MONTH);
@@ -80,13 +80,13 @@ public class AddFragment extends Fragment {
             selectedDateTime.set(Calendar.MONTH, selectedMonth);
             selectedDateTime.set(Calendar.DAY_OF_MONTH, selectedDay);
 
-            // לאחר בחירת התאריך, פתח את ה-TimePickerDialog
-            showTimePickerDialog();
+            showTimePickerDialog(); // לאחר בחירת התאריך, פתח את ה-TimePickerDialog
 
         }, year, month, day);
 
         datePickerDialog.show();
     }
+
     private void showTimePickerDialog() {
         int hour = selectedDateTime.get(Calendar.HOUR_OF_DAY);
         int minute = selectedDateTime.get(Calendar.MINUTE);
@@ -95,8 +95,7 @@ public class AddFragment extends Fragment {
             selectedDateTime.set(Calendar.HOUR_OF_DAY, selectedHour);
             selectedDateTime.set(Calendar.MINUTE, selectedMinute);
 
-            // עדכון התאריך והשעה שנבחרו ב-TextView
-            updateDateTimeTextView();
+            updateDateTimeTextView(); // עדכון התאריך והשעה שנבחרו ב-TextView
 
         }, hour, minute, true);
 
@@ -104,61 +103,59 @@ public class AddFragment extends Fragment {
     }
 
     private void updateDateTimeTextView() {
-        // פורמט תצוגת התאריך והשעה
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
-        String dateTimeString = dateFormat.format(selectedDateTime.getTime());
+        SimpleDateFormat dateTimeFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault());
+        String dateTimeString = dateTimeFormat.format(selectedDateTime.getTime());
         dateTimeTextView.setText(dateTimeString);
     }
+
     private void saveExpense() {
         String category = categoryTextView.getText().toString();
         String amountString = amountEditText.getText().toString();
-        String date = dateTimeTextView.getText().toString();
-        String time = Calendar.getInstance().getTime().toString();
+        String date = dateFormat.format(selectedDateTime.getTime());
+        String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(selectedDateTime.getTime());
 
         int selectedTypeId = typeRadioGroup.getCheckedRadioButtonId();
-        boolean isIncome = selectedTypeId == R.id.incomeRadioButton; // אם הכפתור שנבחר הוא הכנסה, 'isIncome' יהיה true
+        boolean isIncome = selectedTypeId == R.id.incomeRadioButton;
 
         if (category.isEmpty() || amountString.isEmpty() || date.isEmpty() || selectedTypeId == -1) {
             Toast.makeText(getActivity(), "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
+        try {
+            float expenseAmount = Float.parseFloat(amountString); // בדוק שהסכום ניתן להמרה למספר
+            Expense expense = new Expense(category, amountString, date, time, isIncome);
+            Log.d("AddFragment", "Saving expense with date: " + date);
 
-        Expense expense = new Expense(category, amountString, date, time, isIncome);
+            new Thread(() -> {
+                db.expenseDao().insertExpense(expense);
 
-        new Thread(() -> {
-            db.expenseDao().insertExpense(expense);
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
 
-            // עדכון היתרה ב-SharedPreferences כ-String
-            SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
+                String currentBalanceString = sharedPreferences.getString("balance_amount", "0");
+                float currentBalance = Float.parseFloat(currentBalanceString);
+                float newBalance = isIncome ? (currentBalance + expenseAmount) : (currentBalance - expenseAmount);
 
-            // קבלת היתרה הנוכחית כ-String והמרה ל-Float
-            String currentBalanceString = sharedPreferences.getString("balance_amount", "0");
-            float currentBalance = Float.parseFloat(currentBalanceString);
-            float expenseAmount = Float.parseFloat(amountString);
+                editor.putString("balance_amount", String.valueOf(newBalance));
+                editor.apply();
 
-            // חישוב היתרה החדשה
-            float newBalance = isIncome ? (currentBalance + expenseAmount) : (currentBalance - expenseAmount);
+                getActivity().runOnUiThread(() -> {
+                    Toast.makeText(getActivity(), "Expense saved", Toast.LENGTH_SHORT).show();
+                    categoryTextView.setText("Category");
+                    amountEditText.setText("");
+                    dateTimeTextView.setText("Date & Time");
+                    typeRadioGroup.clearCheck();
 
-            // שמירת היתרה החדשה כ-String
-            editor.putString("balance_amount", String.valueOf(newBalance));
-            editor.apply();
+                    TextView balanceTextView = getActivity().findViewById(R.id.textViewBalance);
+                    if (balanceTextView != null) {
+                        balanceTextView.setText("₪" + newBalance);
+                    }
+                });
+            }).start();
 
-            getActivity().runOnUiThread(() -> {
-                Toast.makeText(getActivity(), "Expense saved", Toast.LENGTH_SHORT).show();
-
-                categoryTextView.setText("Category");
-                amountEditText.setText("");
-                dateTimeTextView.setText("Date & Time");
-                typeRadioGroup.clearCheck();
-
-                TextView balanceTextView = getActivity().findViewById(R.id.textViewBalance);
-                if (balanceTextView != null) {
-                    balanceTextView.setText("₪" + newBalance);
-                }
-            });
-        }).start();
+        } catch (NumberFormatException e) {
+            Toast.makeText(getActivity(), "Please enter a valid amount", Toast.LENGTH_SHORT).show();
+        }
     }
-
 }

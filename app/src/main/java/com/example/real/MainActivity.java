@@ -36,22 +36,7 @@ Button btn1;
         if (savedInstanceState == null) {
             loadFragment(new BlankFragment());
         }
-//            PieChart pieChart = findViewById(R.id.line_chart);
-//
-//            ArrayList<PieEntry> entries = new ArrayList<>();
-//            entries.add(new PieEntry(55f, "Category 1"));
-//            entries.add(new PieEntry(99f, "Category 2"));
-//            entries.add(new PieEntry(25f, "Category 3"));
-//
-//            PieDataSet piedataset = new PieDataSet(entries, "Expense Categories");
-//            piedataset.setColors(ColorTemplate.COLORFUL_COLORS);
-//
-//            PieData piedata = new PieData(piedataset);
-//            pieChart.setData(piedata);
-//
-//            pieChart.getDescription().setEnabled(false);
-//            pieChart.animateY(1000);
-//            pieChart.invalidate();
+
 
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
