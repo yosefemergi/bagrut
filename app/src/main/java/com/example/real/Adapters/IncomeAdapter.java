@@ -1,4 +1,4 @@
-package com.example.real;
+package com.example.real.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.real.DataBase.Expense;
+import com.example.real.R;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.real;
+package com.example.real.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.real.Adapters.ExpenseAdapter;
+import com.example.real.Adapters.IncomeAdapter;
+import com.example.real.CustomMarkerView;
 import com.example.real.DataBase.AppDatabase;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.fragment.app.Fragment;
@@ -20,25 +24,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.example.real.DataBase.Expense;
+import com.example.real.R;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -177,8 +174,8 @@ public class DashboardFragment extends Fragment {
         // ציר Y - הגבלת טווח עליון ותחתון
         YAxis leftAxis = barChart.getAxisLeft();
         leftAxis.setDrawGridLines(true);
-        leftAxis.setAxisMinimum(-1000f); // הגבלת מינימום על ציר ה-Y
-        leftAxis.setAxisMaximum(1000f);  // הגבלת מקסימום על ציר ה-Y
+        leftAxis.setAxisMinimum(-5000f); // הגבלת מינימום על ציר ה-Y
+        leftAxis.setAxisMaximum(5000f);  // הגבלת מקסימום על ציר ה-Y
         leftAxis.setTextColor(Color.WHITE);
         leftAxis.setTypeface(Typeface.DEFAULT_BOLD);
         leftAxis.setTextSize(14f);

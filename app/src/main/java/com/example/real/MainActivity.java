@@ -14,14 +14,13 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.utils.ColorTemplate;
+import com.example.real.API.StatisticsFragment;
+import com.example.real.Fragments.AddFragment;
+import com.example.real.Fragments.BlankFragment;
+import com.example.real.Fragments.DashboardFragment;
+import com.example.real.Fragments.MoreFragment;
+import com.example.real.Fragments.PlanningFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 

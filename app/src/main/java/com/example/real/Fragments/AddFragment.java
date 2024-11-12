@@ -1,4 +1,4 @@
-package com.example.real;
+package com.example.real.Fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.real.DataBase.Expense;
+import com.example.real.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

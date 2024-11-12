@@ -1,4 +1,4 @@
-package com.example.real;
+package com.example.real.Fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.real.MainActivity;
+import com.example.real.R;
 
 
 public class BlankFragment extends Fragment {

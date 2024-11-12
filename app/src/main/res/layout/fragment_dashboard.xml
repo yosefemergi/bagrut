@@ -88,8 +88,8 @@
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/bar_chart"
-                android:layout_width="403dp"
-                android:layout_height="315dp" />
+                android:layout_width="match_parent"
+                android:layout_height="399dp" />
 
         </androidx.cardview.widget.CardView>
 
